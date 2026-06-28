@@ -181,7 +181,7 @@ h3 {
   overflow: hidden;
   background:
     linear-gradient(160deg, rgba(15, 118, 110, 0.97) 0%, rgba(17, 94, 89, 0.94) 55%, rgba(19, 78, 74, 0.96) 100%),
-    url('hram.png') center / cover no-repeat;
+    url('gemini.google.png') center / cover no-repeat;
   color: white;
   border-radius: var(--radius-lg);
   padding: clamp(28px, 6vw, 52px);
