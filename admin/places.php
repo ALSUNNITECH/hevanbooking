@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = trim($_POST['description'] ?? '');
 
     if ($name === '' || $location === '') {
-        $error = '⚠️ أكمل الحقول المطلوبة: الاسم والموقع.';
+        $error = 'أكمل الحقول المطلوبة: الاسم والموقع.';
     } elseif ($id > 0) {
         $stmt = $conn->prepare("UPDATE places SET name=?, location=?, category=?, image_url=?, description=? WHERE id=?");
         $stmt->bind_param('sssssi', $name, $location, $category, $image_url, $description, $id);
@@ -60,14 +60,14 @@ $places = $conn->query("SELECT * FROM places ORDER BY id DESC");
 admin_header('إدارة المناطق السياحية');
 ?>
 
-<h1>📍 إدارة المناطق السياحية</h1>
+<h1><?= svg_icon('pin') ?> إدارة المناطق السياحية</h1>
 <p class="muted">إضافة، تعديل، وحذف المناطق والوجهات السياحية مع صورة اختيارية من assets.</p>
 
 <?php if ($message): ?><div class="alert success"><?= h($message) ?></div><?php endif; ?>
 <?php if ($error): ?><div class="alert error"><?= h($error) ?></div><?php endif; ?>
 
 <div class="card form-card">
-  <h2><?= $edit ? '✏️ تعديل منطقة' : '➕ إضافة منطقة جديدة' ?></h2>
+  <h2><?= $edit ? svg_icon('edit') . ' تعديل منطقة' : svg_icon('plus') . ' إضافة منطقة جديدة' ?></h2>
   <form method="post">
     <input type="hidden" name="id" value="<?= (int)($edit['id'] ?? 0) ?>">
     <div class="form-row">
@@ -97,9 +97,9 @@ admin_header('إدارة المناطق السياحية');
     <label for="description">الوصف</label>
     <textarea id="description" name="description"><?= h($edit['description'] ?? '') ?></textarea>
     <div class="form-actions">
-      <button class="btn" type="submit">💾 حفظ</button>
+      <button class="btn" type="submit"><?= svg_icon('save') ?> حفظ</button>
       <?php if ($edit): ?>
-        <a class="btn secondary" href="<?= url('admin/places.php') ?>">❌ إلغاء التعديل</a>
+        <a class="btn secondary" href="<?= url('admin/places.php') ?>"><?= svg_icon('x') ?> إلغاء التعديل</a>
       <?php endif; ?>
     </div>
   </form>
@@ -129,9 +129,9 @@ admin_header('إدارة المناطق السياحية');
           <td data-label="التصنيف"><span class="badge"><?= h($row['category']) ?></span></td>
           <td data-label="الوصف" class="text-sm"><?= h(text_excerpt($row['description'] ?? '', 60)) ?></td>
           <td data-label="إجراءات" class="actions-cell">
-            <a class="btn small" href="<?= url('admin/places.php?edit=' . (int)$row['id']) ?>">✏️</a>
-            <a class="btn small danger" onclick="return confirm('❗ حذف المنطقة: <?= h($row['name']) ?>؟')"
-               href="<?= url('admin/places.php?delete=' . (int)$row['id']) ?>">🗑️</a>
+            <a class="btn small" href="<?= url('admin/places.php?edit=' . (int)$row['id']) ?>"><?= svg_icon('edit') ?></a>
+            <a class="btn small danger" onclick="return confirm('حذف المنطقة: <?= h($row['name']) ?>؟')"
+               href="<?= url('admin/places.php?delete=' . (int)$row['id']) ?>"><?= svg_icon('trash') ?></a>
           </td>
         </tr>
       <?php endwhile; ?>

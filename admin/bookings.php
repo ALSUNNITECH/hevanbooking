@@ -55,7 +55,7 @@ $bookings = $stmt->get_result();
 admin_header('إدارة الحجوزات');
 ?>
 
-<h1>📋 إدارة الحجوزات</h1>
+<h1><?= svg_icon('booking') ?> إدارة الحجوزات</h1>
 <p class="muted">عرض الحجوزات وتحديث حالتها: قيد الانتظار، مقبول، مرفوض.</p>
 
 <?php if ($message): ?><div class="alert success"><?= h($message) ?></div><?php endif; ?>
@@ -64,10 +64,10 @@ admin_header('إدارة الحجوزات');
   <h2>فلترة حسب الحالة</h2>
   <form method="get" class="inline-form">
     <select name="status" onchange="this.form.submit()">
-      <option value="">📋 كل الحالات</option>
-      <option value="pending" <?= $status_filter === 'pending' ? 'selected' : '' ?>>⏳ قيد الانتظار</option>
-      <option value="accepted" <?= $status_filter === 'accepted' ? 'selected' : '' ?>>✅ مقبول</option>
-      <option value="rejected" <?= $status_filter === 'rejected' ? 'selected' : '' ?>>❌ مرفوض</option>
+      <option value="">كل الحالات</option>
+      <option value="pending" <?= $status_filter === 'pending' ? 'selected' : '' ?>>قيد الانتظار</option>
+      <option value="accepted" <?= $status_filter === 'accepted' ? 'selected' : '' ?>>مقبول</option>
+      <option value="rejected" <?= $status_filter === 'rejected' ? 'selected' : '' ?>>مرفوض</option>
     </select>
   </form>
 </div>
@@ -102,14 +102,14 @@ admin_header('إدارة الحجوزات');
             <form method="post" class="inline-form">
               <input type="hidden" name="id" value="<?= (int)$row['id'] ?>">
               <select name="status" class="small-select">
-                <option value="pending" <?= $row['status'] === 'pending' ? 'selected' : '' ?>>⏳ انتظار</option>
-                <option value="accepted" <?= $row['status'] === 'accepted' ? 'selected' : '' ?>>✅ قبول</option>
-                <option value="rejected" <?= $row['status'] === 'rejected' ? 'selected' : '' ?>>❌ رفض</option>
+                <option value="pending" <?= $row['status'] === 'pending' ? 'selected' : '' ?>>انتظار</option>
+                <option value="accepted" <?= $row['status'] === 'accepted' ? 'selected' : '' ?>>قبول</option>
+                <option value="rejected" <?= $row['status'] === 'rejected' ? 'selected' : '' ?>>رفض</option>
               </select>
               <button class="btn small" type="submit">تحديث</button>
             </form>
-            <a class="btn small danger" onclick="return confirm('❗ حذف الحجز؟')"
-               href="<?= url('admin/bookings.php?delete=' . (int)$row['id']) ?>">🗑️</a>
+            <a class="btn small danger" onclick="return confirm('حذف الحجز؟')"
+               href="<?= url('admin/bookings.php?delete=' . (int)$row['id']) ?>"><?= svg_icon('trash') ?></a>
           </td>
         </tr>
       <?php endwhile; ?>

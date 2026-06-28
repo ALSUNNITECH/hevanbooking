@@ -16,27 +16,27 @@ $latest = $conn->query("SELECT b.*, c.name AS company_name, p.name AS place_name
 admin_header('لوحة التحكم');
 ?>
 
-<h1>📊 لوحة التحكم</h1>
+<h1><?= svg_icon('chart') ?> لوحة التحكم</h1>
 <p class="muted">ملخص سريع لنظام الحجوزات التجريبي.</p>
 
 <div class="stats-row">
   <div class="stat-box">
-    <span class="stat-icon">🏢</span>
+    <span class="stat-icon"><?= svg_icon('building') ?></span>
     <strong><?= $stats['companies'] ?></strong>
     <span class="muted">الشركات</span>
   </div>
   <div class="stat-box">
-    <span class="stat-icon">📍</span>
+    <span class="stat-icon"><?= svg_icon('pin') ?></span>
     <strong><?= $stats['places'] ?></strong>
     <span class="muted">المناطق</span>
   </div>
   <div class="stat-box">
-    <span class="stat-icon">📋</span>
+    <span class="stat-icon"><?= svg_icon('booking') ?></span>
     <strong><?= $stats['bookings'] ?></strong>
     <span class="muted">كل الحجوزات</span>
   </div>
   <div class="stat-box">
-    <span class="stat-icon">⏳</span>
+    <span class="stat-icon"><?= svg_icon('clock') ?></span>
     <strong><?= $stats['pending'] ?></strong>
     <span class="muted">قيد الانتظار</span>
   </div>

@@ -21,11 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $notes        = trim($_POST['notes'] ?? '');
 
     if ($user_name === '' || $phone === '' || $company_id <= 0 || $booking_date === '') {
-        $error = '⚠️ أكمل الحقول المطلوبة: اسم العميل، رقم الهاتف، الشركة، تاريخ الحجز.';
+        $error = 'أكمل الحقول المطلوبة: اسم العميل، رقم الهاتف، الشركة، تاريخ الحجز.';
     } elseif ($booking_date < $today) {
-        $error = '⚠️ تاريخ الحجز لا يمكن أن يكون قبل تاريخ اليوم.';
+        $error = 'تاريخ الحجز لا يمكن أن يكون قبل تاريخ اليوم.';
     } elseif ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = '⚠️ البريد الإلكتروني غير صحيح.';
+        $error = 'البريد الإلكتروني غير صحيح.';
     } else {
         $stmt = $conn->prepare("INSERT INTO bookings (user_name, phone, email, company_id, place_id, booking_date, notes, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')");
         $stmt->bind_param('sssiiss', $user_name, $phone, $email, $company_id, $place_id, $booking_date, $notes);
@@ -59,7 +59,7 @@ include __DIR__ . '/includes/header.php';
 
 <div class="booking-layout">
   <section class="card form-card booking-form-card">
-    <h1>📋 تسجيل حجز سياحي جديد</h1>
+    <h1><?= svg_icon('booking') ?> تسجيل حجز سياحي جديد</h1>
     <p class="muted">قم بتعبئة النموذج أدناه لحجز رحلة مع إحدى الشركات السياحية.</p>
 
     <?php if ($success): ?>
@@ -71,29 +71,29 @@ include __DIR__ . '/includes/header.php';
     <form method="post">
       <div class="form-row">
         <div>
-          <label for="user_name">👤 اسم العميل *</label>
+          <label for="user_name"><?= svg_icon('user') ?> اسم العميل *</label>
           <input type="text" id="user_name" name="user_name" required autocomplete="name">
         </div>
         <div>
-          <label for="phone">📞 رقم الهاتف *</label>
+          <label for="phone"><?= svg_icon('phone') ?> رقم الهاتف *</label>
           <input type="tel" id="phone" name="phone" required autocomplete="tel" inputmode="tel">
         </div>
       </div>
 
       <div class="form-row">
         <div>
-          <label for="email">📧 البريد الإلكتروني</label>
+          <label for="email"><?= svg_icon('mail') ?> البريد الإلكتروني</label>
           <input type="email" id="email" name="email" autocomplete="email">
         </div>
         <div>
-          <label for="booking_date">📅 تاريخ الحجز *</label>
+          <label for="booking_date"><?= svg_icon('calendar') ?> تاريخ الحجز *</label>
           <input type="date" id="booking_date" name="booking_date" min="<?= h($today) ?>" value="<?= h($today) ?>" required>
         </div>
       </div>
 
       <div class="form-row">
         <div>
-          <label for="company_id">🏢 الشركة السياحية *</label>
+          <label for="company_id"><?= svg_icon('building') ?> الشركة السياحية *</label>
           <select id="company_id" name="company_id" required>
             <option value="">-- اختر الشركة --</option>
             <?php while ($company = $companies->fetch_assoc()): ?>
@@ -105,7 +105,7 @@ include __DIR__ . '/includes/header.php';
           </select>
         </div>
         <div>
-          <label for="place_id">📍 المنطقة السياحية</label>
+          <label for="place_id"><?= svg_icon('pin') ?> المنطقة السياحية</label>
           <select id="place_id" name="place_id">
             <option value="">-- بدون تحديد --</option>
             <?php while ($place = $places->fetch_assoc()): ?>
@@ -118,12 +118,12 @@ include __DIR__ . '/includes/header.php';
         </div>
       </div>
 
-      <label for="notes">📝 ملاحظات</label>
+      <label for="notes"><?= svg_icon('note') ?> ملاحظات</label>
       <textarea id="notes" name="notes" placeholder="أي ملاحظات إضافية ..."></textarea>
 
       <div class="form-actions">
-        <button class="btn" type="submit">💾 حفظ الحجز</button>
-        <a class="btn secondary" href="<?= url('index.php') ?>">🔙 رجوع</a>
+        <button class="btn" type="submit"><?= svg_icon('save') ?> حفظ الحجز</button>
+        <a class="btn secondary" href="<?= url('index.php') ?>"><?= svg_icon('back') ?> رجوع</a>
       </div>
     </form>
   </section>
@@ -135,7 +135,7 @@ include __DIR__ . '/includes/header.php';
         <div class="card-body">
           <span class="badge"><?= h($selected_place_info['category']) ?></span>
           <h3><?= h($selected_place_info['name']) ?></h3>
-          <p class="muted">📍 <?= h($selected_place_info['location']) ?></p>
+          <p class="muted"><?= svg_icon('pin') ?> <?= h($selected_place_info['location']) ?></p>
           <p><?= h(text_excerpt($selected_place_info['description'] ?? '', 110)) ?></p>
         </div>
       </div>
@@ -146,8 +146,8 @@ include __DIR__ . '/includes/header.php';
         <div class="card-body">
           <span class="badge">الشركة المختارة</span>
           <h3><?= h($selected_company_info['name']) ?></h3>
-          <p class="muted">📞 <?= h($selected_company_info['phone']) ?></p>
-          <p class="muted">📍 <?= h($selected_company_info['address']) ?></p>
+          <p class="muted"><?= svg_icon('phone') ?> <?= h($selected_company_info['phone']) ?></p>
+          <p class="muted"><?= svg_icon('pin') ?> <?= h($selected_company_info['address']) ?></p>
         </div>
       </div>
     <?php endif; ?>

@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = trim($_POST['description'] ?? '');
 
     if ($name === '' || $address === '' || $phone === '') {
-        $error = '⚠️ أكمل الحقول المطلوبة: الاسم، العنوان، الهاتف.';
+        $error = 'أكمل الحقول المطلوبة: الاسم، العنوان، الهاتف.';
     } elseif ($id > 0) {
         $stmt = $conn->prepare("UPDATE companies SET name=?, address=?, phone=?, image_url=?, description=? WHERE id=?");
         $stmt->bind_param('sssssi', $name, $address, $phone, $image_url, $description, $id);
@@ -60,7 +60,7 @@ $companies = $conn->query("SELECT * FROM companies ORDER BY id DESC");
 admin_header('إدارة الشركات السياحية');
 ?>
 
-<h1>🏢 إدارة الشركات السياحية</h1>
+<h1><?= svg_icon('building') ?> إدارة الشركات السياحية</h1>
 <p class="muted">إضافة، تعديل، وحذف الشركات المسجلة في النظام.</p>
 
 <?php if ($message): ?><div class="alert success"><?= h($message) ?></div><?php endif; ?>
@@ -68,7 +68,7 @@ admin_header('إدارة الشركات السياحية');
 
 <!-- نموذج الإضافة / التعديل -->
 <div class="card form-card">
-  <h2><?= $edit ? '✏️ تعديل شركة' : '➕ إضافة شركة جديدة' ?></h2>
+  <h2><?= $edit ? svg_icon('edit') . ' تعديل شركة' : svg_icon('plus') . ' إضافة شركة جديدة' ?></h2>
   <form method="post">
     <input type="hidden" name="id" value="<?= (int)($edit['id'] ?? 0) ?>">
     <div class="form-row">
@@ -94,9 +94,9 @@ admin_header('إدارة الشركات السياحية');
     <label for="description">الوصف</label>
     <textarea id="description" name="description"><?= h($edit['description'] ?? '') ?></textarea>
     <div class="form-actions">
-      <button class="btn" type="submit">💾 حفظ</button>
+      <button class="btn" type="submit"><?= svg_icon('save') ?> حفظ</button>
       <?php if ($edit): ?>
-        <a class="btn secondary" href="<?= url('admin/companies.php') ?>">❌ إلغاء التعديل</a>
+        <a class="btn secondary" href="<?= url('admin/companies.php') ?>"><?= svg_icon('x') ?> إلغاء التعديل</a>
       <?php endif; ?>
     </div>
   </form>
@@ -127,9 +127,9 @@ admin_header('إدارة الشركات السياحية');
           <td data-label="العنوان"><?= h($row['address']) ?></td>
           <td data-label="الوصف" class="text-sm"><?= h(text_excerpt($row['description'] ?? '', 60)) ?></td>
           <td data-label="إجراءات" class="actions-cell">
-            <a class="btn small" href="<?= url('admin/companies.php?edit=' . (int)$row['id']) ?>">✏️</a>
-            <a class="btn small danger" onclick="return confirm('❗ حذف الشركة: <?= h($row['name']) ?>؟')"
-               href="<?= url('admin/companies.php?delete=' . (int)$row['id']) ?>">🗑️</a>
+            <a class="btn small" href="<?= url('admin/companies.php?edit=' . (int)$row['id']) ?>"><?= svg_icon('edit') ?></a>
+            <a class="btn small danger" onclick="return confirm('حذف الشركة: <?= h($row['name']) ?>؟')"
+               href="<?= url('admin/companies.php?delete=' . (int)$row['id']) ?>"><?= svg_icon('trash') ?></a>
           </td>
         </tr>
       <?php endwhile; ?>

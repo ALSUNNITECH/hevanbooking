@@ -22,10 +22,10 @@ include __DIR__ . '/includes/header.php';
 ?>
 
 <div class="card form-card" style="max-width:480px;margin:40px auto">
-  <h1>🔐 تسجيل دخول الإداري</h1>
+  <h1><?= svg_icon('lock') ?> تسجيل دخول الإداري</h1>
 
   <div class="alert info">
-    💡 بيانات الدخول التجريبية:<br>
+    <?= svg_icon('bulb') ?> بيانات الدخول التجريبية:<br>
     المستخدم: <b>admin</b> &nbsp;|&nbsp; كلمة المرور: <b>admin123</b>
   </div>
 
@@ -34,14 +34,14 @@ include __DIR__ . '/includes/header.php';
   <?php endif; ?>
 
   <form method="post">
-    <label for="username">👤 اسم المستخدم</label>
+    <label for="username"><?= svg_icon('user') ?> اسم المستخدم</label>
     <input type="text" id="username" name="username" required autofocus>
 
-    <label for="password">🔑 كلمة المرور</label>
+    <label for="password"><?= svg_icon('key') ?> كلمة المرور</label>
     <input type="password" id="password" name="password" required>
 
     <div class="form-actions" style="margin-top:20px">
-      <button class="btn" type="submit">دخول ➡️</button>
+      <button class="btn" type="submit"><?= svg_icon('lock') ?> دخول</button>
     </div>
   </form>
 </div>

@@ -21,7 +21,7 @@
     <div class="nav">
       <a href="<?= url('index.php') ?>" class="brand">
       <img class="brand-logo" src="<?= asset_url('logo/logoicon1.png') ?>" alt="Hevan Booking" onerror="this.style.display='none'" width="40" height="40">
-      🌍 Hevan Booking
+      <?= svg_icon('globe') ?> Hevan Booking
     </a>
       <nav>
         <a href="<?= url('index.php') ?>">الرئيسية</a>
@@ -32,7 +32,10 @@
         <?php else: ?>
           <a href="<?= url('login.php') ?>">دخول الإداري</a>
         <?php endif; ?>
-        <button id="themeToggle" class="theme-toggle" type="button" aria-label="تبديل الوضع">🌙</button>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="تبديل الوضع">
+          <?= svg_icon('moon', 'theme-icon-moon') ?>
+          <?= svg_icon('sun', 'theme-icon-sun') ?>
+        </button>
       </nav>
     </div>
   </div>

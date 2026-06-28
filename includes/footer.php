@@ -15,7 +15,7 @@
   function setTheme(theme) {
     root.setAttribute('data-theme', theme);
     try { localStorage.setItem(key, theme); } catch (e) {}
-    if (button) button.textContent = theme === 'dark' ? '☀️' : '🌙';
+    if (button) button.setAttribute('aria-label', theme === 'dark' ? 'تفعيل الوضع الفاتح' : 'تفعيل الوضع الداكن');
   }
 
   var current = root.getAttribute('data-theme') || 'light';

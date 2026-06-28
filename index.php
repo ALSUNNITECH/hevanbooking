@@ -25,15 +25,15 @@ include __DIR__ . '/includes/header.php';
       وتسجيل الحجوزات بسرعة من الجوال أو اللابتوب.
     </p>
     <div class="actions">
-      <a class="btn" href="<?= url('book.php') ?>">📋 احجز الآن</a>
-      <a class="btn glass" href="#places">🏞️ تصفح الوجهات</a>
-      <a class="btn secondary" href="<?= url('login.php') ?>">🔐 دخول الإداري</a>
+      <a class="btn" href="<?= url('book.php') ?>"><?= svg_icon('booking') ?> احجز الآن</a>
+      <a class="btn glass" href="#places"><?= svg_icon('landscape') ?> تصفح الوجهات</a>
+      <a class="btn secondary" href="<?= url('login.php') ?>"><?= svg_icon('lock') ?> دخول الإداري</a>
     </div>
 
     <form class="hero-search" method="get" action="<?= url('book.php') ?>">
-      <input type="text" name="q" placeholder="🔍 ابحث عن وجهة أو شركة..." aria-label="بحث">
+      <input type="text" name="q" placeholder="ابحث عن وجهة أو شركة..." aria-label="بحث">
       <select name="company_id" aria-label="اختر شركة">
-        <option value="">🏢 كل الشركات</option>
+        <option value="">كل الشركات</option>
         <?php
         $companies_for_search = $conn->query("SELECT id, name FROM companies ORDER BY name");
         while ($c = $companies_for_search->fetch_assoc()): ?>
@@ -66,22 +66,22 @@ include __DIR__ . '/includes/header.php';
 <!-- إحصائيات -->
 <div class="stats-row">
   <div class="stat-box">
-    <span class="stat-icon">🏢</span>
+    <span class="stat-icon"><?= svg_icon('building') ?></span>
     <strong><?= $stats['companies'] ?></strong>
     <span class="muted">الشركات</span>
   </div>
   <div class="stat-box">
-    <span class="stat-icon">📍</span>
+    <span class="stat-icon"><?= svg_icon('pin') ?></span>
     <strong><?= $stats['places'] ?></strong>
     <span class="muted">المناطق</span>
   </div>
   <div class="stat-box">
-    <span class="stat-icon">📋</span>
+    <span class="stat-icon"><?= svg_icon('booking') ?></span>
     <strong><?= $stats['bookings'] ?></strong>
     <span class="muted">الحجوزات</span>
   </div>
   <div class="stat-box">
-    <span class="stat-icon">📱</span>
+    <span class="stat-icon"><?= svg_icon('mobile') ?></span>
     <strong>متجاوب</strong>
     <span class="muted">جوال ولابتوب</span>
   </div>
@@ -90,7 +90,7 @@ include __DIR__ . '/includes/header.php';
 <!-- المناطق السياحية -->
 <div id="places" class="section-title">
   <div>
-    <h2>🏞️ المناطق السياحية</h2>
+    <h2><?= svg_icon('landscape') ?> المناطق السياحية</h2>
     <p class="muted">صور الوجهات تظهر تلقائياً من مجلد assets.</p>
   </div>
   <span class="badge">وجهات مميزة</span>
@@ -113,7 +113,7 @@ include __DIR__ . '/includes/header.php';
       <?php endif; ?>
       <div class="card-body">
         <h3><?= h($place['name']) ?></h3>
-        <p class="muted">📍 <?= h($place['location']) ?></p>
+        <p class="muted"><?= svg_icon('pin') ?> <?= h($place['location']) ?></p>
         <p><?= h(text_excerpt($place['description'] ?? '', 95)) ?></p>
         <a class="btn small full-mobile" href="<?= url('book.php?place_id=' . (int)$place['id']) ?>">احجز لهذه المنطقة</a>
       </div>
@@ -124,7 +124,7 @@ include __DIR__ . '/includes/header.php';
 <!-- الشركات السياحية -->
 <div class="section-title">
   <div>
-    <h2>🏢 الشركات السياحية</h2>
+    <h2><?= svg_icon('building') ?> الشركات السياحية</h2>
     <p class="muted">اختر شركة مناسبة وأرسل طلب حجزك مباشرة.</p>
   </div>
   <span class="badge">شركات معتمدة</span>
@@ -136,12 +136,12 @@ include __DIR__ . '/includes/header.php';
       <?php if (!empty($company['image_url'])): ?>
         <div class="card-img"><img src="<?= h(asset_url($company['image_url'])) ?>" alt="<?= h($company['name']) ?>"></div>
       <?php else: ?>
-        <div class="company-icon">🏢</div>
+        <div class="company-icon"><?= svg_icon('building') ?></div>
       <?php endif; ?>
       <div class="card-body">
         <h3><?= h($company['name']) ?></h3>
-        <p class="muted">📞 <?= h($company['phone']) ?></p>
-        <p class="muted">📍 <?= h($company['address']) ?></p>
+        <p class="muted"><?= svg_icon('phone') ?> <?= h($company['phone']) ?></p>
+        <p class="muted"><?= svg_icon('pin') ?> <?= h($company['address']) ?></p>
         <p><?= h(text_excerpt($company['description'] ?? '', 100)) ?></p>
         <a class="btn small full-mobile" href="<?= url('book.php?company_id=' . (int)$company['id']) ?>">احجز مع الشركة</a>
       </div>
