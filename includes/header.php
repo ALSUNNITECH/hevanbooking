@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= h($title ?? 'نظام الحجوزات السياحية') ?> | Hevan Booking</title>
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('hevan-theme') || 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
   <link rel="stylesheet" href="<?= h(asset_href('style.css')) ?>">
 </head>
 <body>
@@ -24,6 +32,7 @@
         <?php else: ?>
           <a href="<?= url('login.php') ?>">دخول الإداري</a>
         <?php endif; ?>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="تبديل الوضع">🌙</button>
       </nav>
     </div>
   </div>

@@ -6,5 +6,28 @@
   </div>
 </div>
 
+<script>
+(function () {
+  var root = document.documentElement;
+  var button = document.getElementById('themeToggle');
+  var key = 'hevan-theme';
+
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    try { localStorage.setItem(key, theme); } catch (e) {}
+    if (button) button.textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
+
+  var current = root.getAttribute('data-theme') || 'light';
+  setTheme(current);
+
+  if (button) {
+    button.addEventListener('click', function () {
+      setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
