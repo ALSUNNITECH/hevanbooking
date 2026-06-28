@@ -16,6 +16,7 @@
       🌍 Hevan Booking
     </a>
       <nav>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="تبديل المظهر">🌙</button>
         <a href="<?= url('index.php') ?>">الرئيسية</a>
         <a href="<?= url('book.php') ?>">حجز جديد</a>
         <?php if (is_admin()): ?>

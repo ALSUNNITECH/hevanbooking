@@ -18,47 +18,35 @@ include __DIR__ . '/includes/header.php';
 <!-- Hero Section -->
 <section class="hero">
   <div class="hero-content">
-    <span class="eyebrow">اكتشف السودان مع Hevan Booking</span>
-    <h1>نظام إدارة الحجوزات السياحية</h1>
+    <span class="eyebrow">✈️ اكتشف أجمل الوجهات السياحية</span>
+    <h1>Hevan Booking</h1>
     <p class="hero-desc">
-      منصة تجريبية أنيقة لإدارة الشركات السياحية، عرض الوجهات بالصور،
-      وتسجيل الحجوزات بسرعة من الجوال أو اللابتوب.
+      احجز رحلتك القادمة بسهولة، اختر وجهتك المفضلة من بين أفضل الشركات السياحية.
     </p>
-    <div class="actions">
-      <a class="btn" href="<?= url('book.php') ?>">📋 احجز الآن</a>
-      <a class="btn glass" href="#places">🏞️ تصفح الوجهات</a>
-      <a class="btn secondary" href="<?= url('login.php') ?>">🔐 دخول الإداري</a>
-    </div>
 
-    <form class="hero-search" method="get" action="<?= url('book.php') ?>">
-      <input type="text" name="q" placeholder="🔍 ابحث عن وجهة أو شركة..." aria-label="بحث">
-      <select name="company_id" aria-label="اختر شركة">
-        <option value="">🏢 كل الشركات</option>
-        <?php
-        $companies_for_search = $conn->query("SELECT id, name FROM companies ORDER BY name");
-        while ($c = $companies_for_search->fetch_assoc()): ?>
-          <option value="<?= (int)$c['id'] ?>"><?= h($c['name']) ?></option>
-        <?php endwhile; ?>
-      </select>
-      <button class="btn accent" type="submit">بحث</button>
-    </form>
-  </div>
-
-  <div class="hero-visual">
-    <img src="<?= asset_url('hram.png') ?>" alt="Hevan Booking">
-    <div class="hero-card floating">
-      <div class="hero-stat">
-        <strong><?= $stats['bookings'] ?></strong>
-        <span>حجز مسجل</span>
-      </div>
-      <div class="hero-stat">
-        <strong><?= $stats['companies'] ?></strong>
-        <span>شركة سياحية</span>
-      </div>
-      <div class="hero-stat wide">
-        <strong><?= $stats['places'] ?></strong>
-        <span>منطقة سياحية جاهزة للعرض</span>
-      </div>
+    <div class="hero-visual">
+      <form class="hero-card" method="get" action="<?= url('book.php') ?>">
+        <input type="text" name="q" placeholder="📝 عنوان الرحلة" aria-label="عنوان الرحلة">
+        <input type="text" name="desc" placeholder="📝 وصف الرحلة" aria-label="وصف الرحلة">
+        <select name="city" aria-label="اختر المدينة">
+          <option value="">🏙️ اختر المدينة</option>
+          <?php
+          $cities = $conn->query("SELECT DISTINCT city FROM places WHERE is_active=1 ORDER BY city");
+          while ($c = $cities->fetch_assoc()): ?>
+            <option value="<?= h($c['city']) ?>"><?= h($c['city']) ?></option>
+          <?php endwhile; ?>
+        </select>
+        <select name="company_id" aria-label="اختر الشركة">
+          <option value="">🏢 اختر الشركة السياحية</option>
+          <?php
+          $companies_for_search = $conn->query("SELECT id, name FROM companies WHERE is_active=1 ORDER BY name");
+          while ($c = $companies_for_search->fetch_assoc()): ?>
+            <option value="<?= (int)$c['id'] ?>"><?= h($c['name']) ?></option>
+          <?php endwhile; ?>
+        </select>
+        <input type="date" name="check_in" aria-label="تاريخ الحجز">
+        <button class="btn" type="submit">حدد واحجز ✨</button>
+      </form>
     </div>
   </div>
 </section>
