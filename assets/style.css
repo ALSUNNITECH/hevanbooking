@@ -990,11 +990,26 @@ tr:has(.btn.danger):hover { background: #fef2f2; }
    =========================================== */
 .admin-layout {
   display: grid;
-  grid-template-columns: 230px minmax(0, 1fr);
+  /*
+   * خلي توزيع القريد ثابت بصرياً وما يتأثر باتجاه RTL:
+   * المحتوى العريض في اليسار، والسايدبار الضيق في اليمين.
+   */
+  grid-template-columns: minmax(0, 1fr) 230px;
   gap: 24px;
+  align-items: start;
+  direction: ltr;
+}
+
+.admin-layout > main {
+  grid-column: 1;
+  min-width: 0;
+  direction: rtl;
 }
 
 .sidebar {
+  grid-column: 2;
+  direction: rtl;
+  width: 100%;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -1149,7 +1164,9 @@ tr:has(.btn.danger):hover { background: #fef2f2; }
   .section-title { align-items: flex-start; flex-direction: column; gap: 10px; }
   .booking-layout { grid-template-columns: 1fr; }
   .booking-summary, .sidebar { position: static; }
-  .admin-layout { grid-template-columns: 1fr; }
+  .admin-layout { grid-template-columns: 1fr; direction: rtl; }
+  .admin-layout > main,
+  .admin-layout > .sidebar { grid-column: auto; }
 }
 
 @media (max-width: 700px) {
